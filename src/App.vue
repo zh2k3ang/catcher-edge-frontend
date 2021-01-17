@@ -1,28 +1,25 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <el-container style="height: 100%; width: 100%">
+    <LeftNav />
+    <MainBoard />
+  </el-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import LeftNav from './components/LeftNav'
+import MainBoard from './components/MainBoard'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    LeftNav,
+    MainBoard
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <el-container>
-    footer
   </el-container>
 </template>
 

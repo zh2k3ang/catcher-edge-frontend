@@ -1,10 +1,7 @@
 <template>
   <el-container>
-    <el-row :gutter="20" style="width:100%">
-      <el-col :span="6"><DefaultThing /></el-col>
-      <el-col :span="6"><DefaultThing /></el-col>
-      <el-col :span="6"><DefaultThing /></el-col>
-      <el-col :span="6"><DefaultThing /></el-col>
+    <el-row :gutter="5">
+      <el-col :span=8 v-for="thing in things" :key="thing.id"><DefaultThing /></el-col>
     </el-row>
   </el-container>
 </template>
@@ -18,16 +15,42 @@ export default {
     DefaultThing,
   },
   data() {
-      return {
-        
-      };
-    },
-    methods: {
-     
+    return {
+      items: [
+        { message: 'Foo' },
+        { message: 'Bar' }
+      ],
+      things: []
+    };
+  },
+  methods: {
+    getThings: function() {
+      // this.axios.get('/api/things')
+      //   .then(response=>{
+      //     console.log(response.data);
+      //     this.things = response.data;
+      //   })
+      var item = {
+        id: 'test',
+        state: 'a',
+        test: 'b'        
       }
+      
+      this.things = Array(20).fill(item);
+    }
+  },
+
+  mounted: function() {
+    this.getThings();
+  }
 }
 </script>
 
 <style scoped>
-
+.el-row {
+  width: 100%;
+}
+.el-col {
+    margin-bottom: 5px;  
+}
 </style>

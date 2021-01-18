@@ -7,9 +7,9 @@
     <div v-for="o in 4" :key="o" class="text item">
       {{'属性 ' + o }}
     </div>
-    <div v-for="o in 4" :key="o" class="text item">
+    <!-- <div v-for="o in 4" :key="o" class="text item">
       {{'服务 ' + o }}
-    </div>
+    </div> -->
   </el-card>
 </template>
 

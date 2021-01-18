@@ -1,24 +1,30 @@
 <template>
-  <el-container style="height: 100%; width: 100%">
+  <el-container>
     <LeftNav />
-    <MainBoard />
+    <Main />
   </el-container>
 </template>
 
 <script>
 import LeftNav from './components/LeftNav'
-import MainBoard from './components/MainBoard'
+import Main from './components/Main'
 export default {
   name: 'App',
   components: {
     LeftNav,
-    MainBoard
+    Main
   }
 }
 </script>
 
 <style>
   html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .el-container {
     height: 100%;
     width: 100%;
   }

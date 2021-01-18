@@ -12,12 +12,6 @@
   </el-aside>
 </template>
 
-<style>
-.el-aside {
-    color: #333;
-  }
-</style>
-
 <script>
   export default {
     data() {
@@ -35,3 +29,9 @@
     }
   }
 </script>
+
+<style>
+.el-aside {
+    color: #333;
+  }
+</style>

@@ -1,12 +1,13 @@
 <template>
   <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu :default-openeds="['1']">
+    <el-menu :default-openeds="['1']" :default-active="this.$route.path" router>
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-menu"></i>控制面板</template>
         <el-menu-item-group>
-          <el-menu-item index="1-1">所有</el-menu-item>
-          <el-menu-item index="1-2">设备</el-menu-item>
-          <el-menu-item index="1-3">规则</el-menu-item>
+          <el-menu-item index="/devices" default-active >设备</el-menu-item>
+          <el-menu-item index="/rules">规则</el-menu-item>
+          <el-menu-item index="/drivers">驱动</el-menu-item>
+          <el-menu-item index="/addons">组件</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="2">
@@ -14,6 +15,7 @@
         <el-menu-item-group>
           <el-menu-item index="2-1">设备</el-menu-item>
           <el-menu-item index="2-2">规则</el-menu-item>
+          <el-menu-item index="2-3">组件</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="3">

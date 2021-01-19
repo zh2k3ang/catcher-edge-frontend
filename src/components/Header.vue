@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <span>Catcher, integrate everything in edge</span>
+    <span>Catcher, integrate everything</span>
   </el-container>
 </template>
 

@@ -13,6 +13,17 @@ export default {
   components: {
     LeftNav,
     Main
+  },
+  methods: {
+    getThings: function() {
+      this.axios.get('/api/things')
+        .then(response=>{
+          this.$store.commit('updateThings', response.data);
+        })
+    }
+  },
+  mounted: function() {
+    this.getThings();
   }
 }
 </script>

@@ -4,7 +4,8 @@
       <Header />
     </el-header>
     <el-main>
-      <ThingsBoard /> 
+      <!-- Board View -->
+      <router-view></router-view>
     </el-main>
     <el-footer>
       <Footer />
@@ -14,23 +15,21 @@
 
 <script>
 import Header from './Header'
-import ThingsBoard from './boards/ThingsBoard'
 import Footer from './Footer'
 
 export default {
   components: {
     Header,
-    ThingsBoard,
     Footer
   },
   data() {
       return {
-        isCollapse: true
       };
     },
   methods: {
-
-  }
+    
+  },
+  
 }
 </script>
 

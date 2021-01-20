@@ -35,8 +35,8 @@
           </template>
         </el-table-column>
         <el-table-column header-align="right" align="right" label="操作">
-          <template>
-            <el-button size="mini" type="primary" plain>调用</el-button>
+          <template slot-scope="scope"> 
+            <el-button size="mini" type="primary" @click="callService(scope.row)">调用</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -44,15 +44,31 @@
       <el-button type="text" style="float: right" @click="close">收起</el-button>
     </div>
     
+    <!--dialog to get parameters-->
+    <el-dialog title="请输入参数" :visible.sync="parameterDialog">
+      <el-form>
+        <el-form-item v-for="param in selectedSrvParams" :key="param.name" :label="param.name">
+          <el-input v-model="param.value" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="mini" @click="parameterDialog = false">取消</el-button>
+        <el-button size="mini" type="primary" @click="callServiceWithParams()">调用</el-button>
+      </div>
+    </el-dialog>
 
   </el-card>
+
 </template>
 
 <script>
 export default {
   data() {
       return {
-        isCollapse: true
+        isCollapse: true,
+        parameterDialog: false,
+        selectedSrvParams: Array,
+        selectedService: String,
       };
     },
     methods: {
@@ -61,6 +77,46 @@ export default {
       },
       close: function() {
         this.isCollapse = true;
+      },
+      callService: function(service) {
+        if(service.parameters.length!=0) {
+          // pop a window to get parameters
+          this.selectedSrvParams = service.parameters
+          this.selectedService = service.name
+          this.parameterDialog = true
+        } else {
+          // no parameter
+          // this.selectedSrvParams.length = 0
+          this.axios.post('/api/thing/'+this.thing.id+'/call/'+service.name)
+            .then(()=>{this.$message({
+                message: '调用成功',
+                type: 'success'
+              })
+            })
+            .catch((error)=>{
+              this.$message.error('调用失败, '+error)
+            })
+        }
+      },
+      callServiceWithParams: function() {
+        var params = []
+        this.selectedSrvParams.forEach(element => {
+          params.push({
+            'name': element.name,
+            'type': element.type,
+            'value': element.value,
+          })
+        });
+        console.log(params)
+        this.axios.post('/api/thing/'+this.thing.id+'/call/'+this.selectedService, params)
+            .then(()=>{this.$message({
+                message: '调用成功',
+                type: 'success'
+              })
+            })
+            .catch((error)=>{
+              this.$message.error('调用失败, '+error)
+            })
       }
     },
     props: {

@@ -24,7 +24,7 @@ export default {
     things: function() {
       // filter device thing
       return this.$store.state.things.filter(function(thing) {
-        return thing.type != 'rule' && thing.type != 'driver' && thing.type != 'addon'
+        return thing.type != 'rule' && thing.type != 'driver' && thing.type != 'addon' && thing.type != 'system'
       })
     }
   }

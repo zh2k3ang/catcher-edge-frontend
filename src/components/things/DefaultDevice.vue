@@ -107,7 +107,7 @@ export default {
             'value': element.value,
           })
         });
-        console.log(params)
+
         this.axios.post('/api/thing/'+this.thing.id+'/call/'+this.selectedService, params)
             .then(()=>{this.$message({
                 message: '调用成功',
@@ -117,6 +117,8 @@ export default {
             .catch((error)=>{
               this.$message.error('调用失败, '+error)
             })
+
+        this.parameterDialog = false;
       }
     },
     props: {

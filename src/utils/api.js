@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from './store'
+import ElementUI from 'element-ui';
 
 var ws;
 export function initWebSocket() {
@@ -7,8 +8,10 @@ export function initWebSocket() {
   ws = new WebSocket(url);
   ws.onopen = function() {
     console.log("hand shake success")
-    // sync data when connection establisment
-    getThings();
+    ElementUI.Message({
+      message: '成功连接到catcher',
+      type: 'success'
+    })
   };
   ws.onmessage = function(e) {
     // update things
@@ -19,6 +22,7 @@ export function initWebSocket() {
   };
   ws.onerror = function() {
     console.log("socket error")
+    ElementUI.Message.error("与catcher断开连接");
   };
 
 }
@@ -32,5 +36,7 @@ export function getThings() {
   axios.get('/api/things')
     .then(response=>{
       store.commit('updateThings', response.data);
+    }).catch(()=>{
+      ElementUI.Message.error("从catcher拉取数据失败");
     })
 }

@@ -11,7 +11,7 @@
 
 <script>
 
-import {getThings, initWebSocket} from '../utils/api'
+import {initWebSocket} from '../utils/api'
 
 export default {
   name: 'Header',
@@ -23,7 +23,6 @@ export default {
     },
   methods: {
     refresh: function() {
-      getThings();
       initWebSocket();
     }
   }

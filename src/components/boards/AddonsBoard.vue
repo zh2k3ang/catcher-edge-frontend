@@ -25,14 +25,10 @@ export default {
   },
   computed: {
     things: function() {
-      let thingsMap = this.$store.state.things;
-      let things = [];
-      for(let id in thingsMap) {
-        if(thingsMap[id].type == 'addon') {
-          things.push(thingsMap[id]);
-        }
-      }
-      return things;
+
+      return this.$store.state.things.filter(thing => {
+        return thing.type == 'addon';
+      });
     }
   }
 }

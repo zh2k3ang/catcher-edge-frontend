@@ -8,7 +8,7 @@
 <script>
 import LeftNav from './components/LeftNav'
 import Main from './components/Main'
-import {getThings, initWebSocket} from './utils/api'
+import {initWebSocket} from './utils/api'
 export default {
   name: 'App',
   components: {
@@ -22,8 +22,6 @@ export default {
     
   },
   mounted: function() {
-    // get things 
-    getThings();
     // create websocket to sync data
     initWebSocket();
   }

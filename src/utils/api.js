@@ -7,6 +7,8 @@ export function initWebSocket() {
   ws = new WebSocket(url);
   ws.onopen = function() {
     console.log("hand shake success")
+    // sync data when connection establisment
+    getThings();
   };
   ws.onmessage = function(e) {
     // update things
@@ -29,12 +31,6 @@ export function socketSend(message) {
 export function getThings() {
   axios.get('/api/things')
     .then(response=>{
-
-      let things = {}
-      response.data.forEach(thing => {
-        things[thing.id] = thing
-      });
-      console.log(things)
-      store.commit('updateThings', things);
+      store.commit('updateThings', response.data);
     })
 }

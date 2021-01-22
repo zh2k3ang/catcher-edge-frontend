@@ -8,6 +8,7 @@
 <script>
 import LeftNav from './components/LeftNav'
 import Main from './components/Main'
+import {getThings, initWebSocket} from './utils/api'
 export default {
   name: 'App',
   components: {
@@ -15,15 +16,16 @@ export default {
     Main
   },
   methods: {
-    getThings: function() {
-      this.axios.get('/api/things')
-        .then(response=>{
-          this.$store.commit('updateThings', response.data);
-        })
-    }
+    
+
+
+    
   },
   mounted: function() {
-    this.getThings();
+    // get things 
+    getThings();
+    // create websocket to sync data
+    initWebSocket();
   }
 }
 </script>

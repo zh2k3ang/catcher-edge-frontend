@@ -23,9 +23,14 @@ export default {
   computed: {
     things: function() {
       // filter device thing
-      return this.$store.state.things.filter(function(thing) {
-        return thing.type != 'rule' && thing.type != 'driver' && thing.type != 'addon' && thing.type != 'system'
-      })
+      let thingsMap = this.$store.state.things;
+      let things = [];
+      for(let id in thingsMap) {
+        if(thingsMap[id].type != 'rule' && thingsMap[id].type != 'driver' && thingsMap[id].type != 'addon' && thingsMap[id].type != 'system') {
+          things.push(thingsMap[id]);
+        }
+      }
+      return things;
     }
   }
 }

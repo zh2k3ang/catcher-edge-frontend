@@ -27,9 +27,14 @@ export default {
   computed: {
     things: function() {
       // filter device thing
-      return this.$store.state.things.filter(function(thing) {
-        return thing.type == 'driver'
-      })
+      let thingsMap = this.$store.state.things;
+      let things = [];
+      for(let id in thingsMap) {
+        if(thingsMap[id].type == 'driver') {
+          things.push(thingsMap[id]);
+        }
+      }
+      return things;
     }
   }
 }

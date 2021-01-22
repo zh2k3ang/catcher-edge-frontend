@@ -45,12 +45,17 @@
     </div>
     
     <!--dialog to get parameters-->
-    <el-dialog title="请输入参数" :visible.sync="parameterDialog">
-      <el-form>
-        <el-form-item v-for="param in selectedSrvParams" :key="param.name" :label="param.name">
-          <el-input v-model="param.value" autocomplete="off"></el-input>
+    <el-dialog title="请输入参数" :visible.sync="parameterDialog" width="15%">
+      <el-form size="mini">
+        <el-form-item  v-for="param in selectedSrvParams" :inline-message="true" :key="param.name" >
+          <template slot="label">
+            <span>{{param.name}}</span>
+            <el-badge type="primary" style="margin-left: 5px" :value="param.type" />
+          </template>
+          <el-input v-model="param.value" autocomplete="off" :placeholder="param.description"></el-input>
         </el-form-item>
       </el-form>
+
       <div slot="footer" class="dialog-footer">
         <el-button size="mini" @click="parameterDialog = false">取消</el-button>
         <el-button size="mini" type="primary" @click="callServiceWithParams()">调用</el-button>

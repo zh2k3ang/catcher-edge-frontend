@@ -37,6 +37,28 @@ export function getThings() {
     .then(response=>{
       store.commit('updateThings', response.data);
     }).catch(()=>{
-      ElementUI.Message.error("从catcher拉取数据失败");
+      ElementUI.Message({
+        message: '从catcher拉取数据失败',
+        type: 'error',
+        duration: 1000
+      })
     })
+}
+
+export function callThingService(id, service, params) {
+  axios.post('/api/thing/'+id+'/call/'+service, params)
+  .then(()=>{
+    ElementUI.Message({
+      message: '调用成功',
+      type: 'success',
+      duration: 1000
+    })
+  })
+  .catch((error)=>{
+    ElementUI.Message({
+      message: '调用失败, '+error,
+      type: 'error',
+      duration: 1000
+    })
+  })
 }

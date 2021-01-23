@@ -1,9 +1,9 @@
 <template>
   <el-card class="box-card">
-    <div slot="header" class="clearfix">
+    <div slot="header">
       <span>{{thing.name}}</span>
       <el-badge type="primary" style="margin-left: 5px" :value="thing.type" />
-      <span style="float: right;">state: {{thing.state}}</span>
+      <el-switch v-model="state" active-color="#13ce66" inactive-color="#ff4949" style="float: right" @change="toggle"></el-switch>
     </div>
 
     <div v-if="isCollapse">
@@ -11,36 +11,31 @@
       <span>{{thing.description}}</span>
     </div>
 
-    <div  v-if="!isCollapse" class="complete">
-      <el-table v-if="thing.properties.length!=0" :data="thing.properties" >
-        <el-table-column prop="name" label="属性">
-          <template slot-scope="scope">
-            <el-tooltip placement="top" effect="dark">
-              <div slot="content">{{scope.row.description}}</div>
-              <span>{{scope.row.name}}</span>
-            </el-tooltip>
-          </template>
-        </el-table-column>
-        <el-table-column prop="value" label="值"></el-table-column>
-        <el-table-column prop="unitOfMeasurement" label="单位"></el-table-column>
-      </el-table>
+    <div v-if="!isCollapse">
 
-      <el-table v-if="thing.services.length!=0" :data="thing.services" >
-        <el-table-column prop="name" label="服务">
+      <el-table :data="events">
+        <el-table-column label="Event">
           <template slot-scope="scope">
-            <el-tooltip placement="top" effect="dark">
-              <div slot="content">{{scope.row.description}}</div>
-              <span>{{scope.row.name}}</span>
-            </el-tooltip>
+            {{scope.row}}
           </template>
         </el-table-column>
-        <el-table-column header-align="right" align="right" label="操作">
-          <template>
-            <el-button size="mini" type="primary" plain>调用</el-button>
+      </el-table>
+      
+      <el-table :data="conditions" >
+        <el-table-column label="Conditions">
+          <template slot-scope="scope">
+            {{scope.row}}
           </template>
         </el-table-column>
       </el-table>
 
+      <el-table :data="actions" >
+        <el-table-column label="Actions">
+          <template slot-scope="scope">
+            {{scope.row}}
+          </template>
+        </el-table-column>
+      </el-table>
       <el-button type="text" style="float: right" @click="close">收起</el-button>
     </div>
     
@@ -49,6 +44,9 @@
 </template>
 
 <script>
+
+import {callThingService} from '../../utils/api'
+
 export default {
   data() {
       return {
@@ -61,10 +59,39 @@ export default {
       },
       close: function() {
         this.isCollapse = true;
+      },
+
+      toggle: function() {
+        callThingService(this.thing.id, "toggle");
       }
     },
     props: {
       thing: {} 
+    },
+    computed: {
+
+      state:  {
+        get() {return this.thing.state == 'on'},
+        set() {} // there will be an error if no set()
+      },
+      
+      events: function() {
+        let events = []
+        events.push(this.thing.properties.find((prop=>{
+          return prop.name == 'event';
+        })).value);
+        return events;
+      },
+      conditions: function() {
+        return this.thing.properties.find((prop=>{
+          return prop.name == 'conditions';
+        })).value.split('\n');
+      },
+      actions: function() {
+        return this.thing.properties.find((prop)=>{
+          return prop.name == 'actions';
+        }).value.split('\n');
+      }
     }
 }
 </script>

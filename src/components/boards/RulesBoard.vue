@@ -1,10 +1,8 @@
 <template>
   <el-container>
-    <el-container>
-    <el-row :gutter="5">
-      <el-col :span=8 v-for="thing in things" :key="thing.id"><DefaultRule :thing="thing" /></el-col>
-    </el-row>
-  </el-container>
+    <div v-for="thing in things" :key="thing.id" style="width: 100%">
+      <DefaultRule :thing="thing"/>
+    </div>
   </el-container>
 </template>
 

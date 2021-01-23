@@ -3,7 +3,7 @@
     <div slot="header" class="clearfix">
       <span>{{thing.name}}</span>
       <el-badge type="primary" style="margin-left: 5px" :value="thing.type" />
-      <span style="float: right;">state: {{thing.state}}</span>
+      <span style="float: right;">状态: {{thing.state}}</span>
     </div>
 
     <div v-if="isCollapse">
@@ -67,6 +67,9 @@
 </template>
 
 <script>
+
+import {callThingService} from '../../utils/api'
+
 export default {
   data() {
       return {
@@ -90,17 +93,7 @@ export default {
           this.selectedService = service.name
           this.parameterDialog = true
         } else {
-          // no parameter
-          // this.selectedSrvParams.length = 0
-          this.axios.post('/api/thing/'+this.thing.id+'/call/'+service.name)
-            .then(()=>{this.$message({
-                message: '调用成功',
-                type: 'success'
-              })
-            })
-            .catch((error)=>{
-              this.$message.error('调用失败, '+error)
-            })
+          callThingService(this.thing.id, service.name);
         }
       },
       callServiceWithParams: function() {
@@ -112,17 +105,7 @@ export default {
             'value': element.value,
           })
         });
-
-        this.axios.post('/api/thing/'+this.thing.id+'/call/'+this.selectedService, params)
-            .then(()=>{this.$message({
-                message: '调用成功',
-                type: 'success'
-              })
-            })
-            .catch((error)=>{
-              this.$message.error('调用失败, '+error)
-            })
-
+        callThingService(this.thing.id, this.selectedService, params);
         this.parameterDialog = false;
       }
     },

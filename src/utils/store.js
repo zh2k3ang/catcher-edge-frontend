@@ -17,12 +17,13 @@ export default new Vuex.Store({
 
       // find state/property in thing and update
       if(payload.property!=undefined) {
-        let tIdx = state.things.findIndex((thing)=>thing.id == payload.id);
-        let pIdx = state.things[tIdx].properties.findIndex((property)=>property.name == payload.property)
-        state.things[tIdx].properties[pIdx].value = payload.newValue;
+        state.things.find((thing)=>thing.id == payload.id)
+                    .properties
+                    .find((property)=>property.name == payload.property)
+                    .value = payload.newValue;
       } else if(payload.newState != undefined) {
-        let tIdx = state.things.findIndex((thing)=>thing.id == payload.id);
-        state.things[tIdx].state = payload.newState;
+        state.things.find((thing)=>thing.id == payload.id)
+                    .state = payload.newState;
       }
     }
   }

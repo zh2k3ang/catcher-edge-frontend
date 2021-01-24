@@ -35,4 +35,7 @@ export default {
 .el-row {
   width: 100%;
 }
+.el-col {
+  margin-bottom: 5px;
+}
 </style>

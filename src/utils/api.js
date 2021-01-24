@@ -7,7 +7,6 @@ export function initWebSocket() {
   let url = "ws://127.0.0.1:8001";
   ws = new WebSocket(url);
   ws.onopen = function() {
-    console.log("hand shake success")
     ElementUI.Message({
       message: '成功连接到catcher',
       type: 'success'
@@ -15,7 +14,20 @@ export function initWebSocket() {
   };
   ws.onmessage = function(e) {
     // update things
-    store.commit('updateThing', JSON.parse(e.data))
+    let event = JSON.parse(e.data);
+    if(event.type == 'state_updated') {
+      
+      store.commit('updateThingState', event.data)
+    } else if(event.type == 'property_updated') {
+      store.commit('updateThingProperty', event.data)
+    } else if(event.type == 'rule_satisfied') {
+        ElementUI.Message({
+          message: '触发规则: '+event.data,
+          type: 'success',
+          duration: 2000
+        });
+    }
+    
   };
   ws.onclose = function() {
     console.log("socket closed")

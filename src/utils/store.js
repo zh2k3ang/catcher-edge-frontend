@@ -25,7 +25,17 @@ export default new Vuex.Store({
         state.things.find((thing)=>thing.id == payload.id)
                     .state = payload.newState;
       }
-    }
+    },
+    updateThingState: function(state, payload) {
+        state.things.find((thing)=>thing.id == payload.id)
+                    .state = payload.newState;
+    },
+    updateThingProperty: function(state, payload) {
+      state.things.find((thing)=>thing.id == payload.id)
+                    .properties
+                    .find((property)=>property.name == payload.property)
+                    .value = payload.newValue;
+    },
   }
 })
 

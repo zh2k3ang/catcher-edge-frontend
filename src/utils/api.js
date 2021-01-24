@@ -23,8 +23,7 @@ export function initWebSocket() {
     } else if(event.type == 'rule_satisfied') {
         ElementUI.Message({
           message: '触发规则: '+event.data,
-          type: 'success',
-          duration: 2000
+          type: 'success'
         });
     }
     
@@ -52,7 +51,6 @@ export function getThings() {
       ElementUI.Message({
         message: '从catcher拉取数据失败',
         type: 'error',
-        duration: 1000
       })
     })
 }

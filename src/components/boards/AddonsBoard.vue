@@ -1,17 +1,16 @@
 <template>
   <el-container>
-    <el-row :gutter="5">
+    尚未支持Addon操作
+    <!-- <el-row :gutter="5">
       <el-col :span=8 v-for="thing in things" :key="thing.id"><DefaultAddon :thing="thing" /></el-col>
-    </el-row>
+    </el-row> -->
   </el-container>
 </template>
 
 <script>
-import DefaultAddon from '../things/DefaultAddon'
 
 export default {
   components: {
-    DefaultAddon
   },
   data() {
     return {

@@ -4,6 +4,8 @@ import DevicesBoard from '../components/boards/DevicesBoard'
 import RulesBoard from '../components/boards/RulesBoard'
 import DriversBoard from '../components/boards/DriversBoard'
 import AddonsBoard from '../components/boards/AddonsBoard'
+import DeviceConfigBoard from '../components/boards/DeviceConfigBoard'
+import RuleConfigBoard from '../components/boards/RuleConfigBoard'
 
 Vue.use(VueRouter)
 
@@ -31,6 +33,16 @@ const routes = [
     path: '/addons', 
     name: 'addonsBoard',
     component: AddonsBoard 
+  },
+  { 
+    path: '/device/config', 
+    name: 'deviceConfig',
+    component: DeviceConfigBoard 
+  },
+  { 
+    path: '/rule/config', 
+    name: 'ruleConfig',
+    component: RuleConfigBoard
   },
 
 ]

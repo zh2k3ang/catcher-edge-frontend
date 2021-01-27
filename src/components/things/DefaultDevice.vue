@@ -12,6 +12,7 @@
     </div>
 
     <div  v-if="!isCollapse" class="complete">
+      <el-alert :title="thing.id" type="info" center :show-icon="false" :closable="false"></el-alert>
       <el-table v-if="thing.properties.length!=0" :data="thing.properties" >
         <el-table-column prop="name" label="属性">
           <template slot-scope="scope">

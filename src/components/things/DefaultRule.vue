@@ -13,8 +13,8 @@
 
     <div v-if="!isCollapse">
 
-      <el-table :data="events">
-        <el-table-column label="Event">
+      <el-table :data="triggers">
+        <el-table-column label="Trigger">
           <template slot-scope="scope">
             {{scope.row}}
           </template>
@@ -75,12 +75,13 @@ export default {
         set() {} // there will be an error if no set()
       },
       
-      events: function() {
-        let events = []
-        events.push(this.thing.properties.find((prop=>{
-          return prop.name == 'event';
+      triggers: function() {
+        // use table to render trigger, so make it array
+        let triggers = []
+        triggers.push(this.thing.properties.find((prop=>{
+          return prop.name == 'trigger';
         })).value);
-        return events;
+        return triggers;
       },
       conditions: function() {
         return this.thing.properties.find((prop=>{
